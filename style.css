@@ -1,6 +1,18 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
 }
 
 html, body {
@@ -58,8 +70,137 @@ main {
     padding: 9px 17px;
     border: none;
     cursor: pointer;
-    margin-top: 51px;
-    margin-bottom: 35px;
+    margin-top: 14px;
+}
+
+.options-container {
+    margin: 15px 0px;
+    display: flex;
+    align-items: center;
+}
+
+.option-text {
+    font-size: 14px;
+    color: #D5D4D8;
+    line-height: 28px;
+    margin-left: 12px;
+}
+
+.checkbox-wrapper-2 .ikxBAC {
+    appearance: none;
+    background-color: #dfe1e4;
+    border-radius: 72px;
+    border-style: none;
+    flex-shrink: 0;
+    height: 20px;
+    margin: 0 12px 0 0;
+    position: relative;
+    width: 30px;
+    top: 2px;
+}
+
+.checkbox-wrapper-2 .ikxBAC::before {
+    bottom: -6px;
+    content: "";
+    left: -6px;
+    position: absolute;
+    right: -6px;
+    top: -6px;
+}
+
+.checkbox-wrapper-2 .ikxBAC,
+.checkbox-wrapper-2 .ikxBAC::after {
+    transition: all 100ms ease-out;
+}
+
+.checkbox-wrapper-2 .ikxBAC::after {
+    background-color: #fff;
+    border-radius: 50%;
+    content: "";
+    height: 14px;
+    left: 3px;
+    position: absolute;
+    top: 3px;
+    width: 14px;
+}
+
+.checkbox-wrapper-2 input[type=checkbox] {
+    cursor: default;
+}
+
+.checkbox-wrapper-2 .ikxBAC:hover {
+    background-color: #c9cbcd;
+    transition-duration: 0s;
+}
+
+.checkbox-wrapper-2 .ikxBAC:checked {
+    background-color: #6e79d6;
+}
+
+.checkbox-wrapper-2 .ikxBAC:checked::after {
+    background-color: #fff;
+    left: 13px;
+}
+
+.checkbox-wrapper-2 :focus:not(.focus-visible) {
+    outline: 0;
+}
+
+.checkbox-wrapper-2 .ikxBAC:checked:hover {
+    background-color: #535db3;
+}
+
+.special-label {
+    padding-right: 20px;
+    margin-right: 20px;
+    border-right: 2px solid #273549;
+    font-size: 14px;
+    color: #D5D4D8;
+    line-height: 28px;
+}
+
+.select-dropdown,
+.select-dropdown * {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.select-dropdown {
+    position: relative;
+    background-color: #E6E6E6;
+    border-radius: 4px;
+}
+
+.select-dropdown select {
+    font-weight: normal;
+    max-width: 100%;
+    padding: 6px 24px 6px 8px;
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.select-dropdown select:active,
+.select-dropdown select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.select-dropdown:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 0;
+    height: 0;
+    margin-top: -2px;
+    border-top: 5px solid #aaa;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
 }
 
 .passwords-container {

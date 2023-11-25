@@ -2,38 +2,50 @@ const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
 const numbers = '0123456789';
 const specialCharacters = '!@#$%^&*()_-+=?';
-const allCharacters = uppercaseLetters + lowercaseLetters + numbers + specialCharacters;
+let length = 0;
+let hasSpecial = false;
 let canCopy = false;
 
-document.querySelector('body').addEventListener('click', e => {
-    e.target.id === 'generate-btn' && renderPassword()
-    e.target.classList.contains('password-box') && copyToClipboard(e.target.id)
-})
+const initialize = () => {
+    const minLength = 9;
+    const maxLength = 14;
+    const defaultLength = 12;
+    length = defaultLength;
 
-function renderPassword() {
-    const firstPassword = generatePassword(14)
-    const secondPassword = generatePassword(14)
-    const passwords = [firstPassword, secondPassword]
+    let html = '';
+    for (let i = minLength; i <= maxLength; i++) {
+        const selected = i === defaultLength ? 'selected' : '';
+        html += `<option value="${i}" ${selected}>${i}</option>`;
+    }
+    document.getElementById('length').innerHTML = html;
+};
 
-    document.querySelectorAll('.password-box').forEach(
-        (box, index) => {
-            console.log(passwords[index])
-            box.innerHTML = passwords[index]
-        }
-    )
-    canCopy = true
-}
+const renderPassword = () => {
+    const firstPassword = generatePassword(length, hasSpecial);
+    const secondPassword = generatePassword(length, hasSpecial);
+    const passwords = [firstPassword, secondPassword];
 
-function generatePassword(length) {
+    document.querySelectorAll('.password-box').forEach((box, index) => {
+        box.innerHTML = passwords[index];
+    });
+
+    canCopy = true;
+};
+
+const generatePassword = (length, hasSpecial) => {
+    const allCharacters = hasSpecial
+        ? uppercaseLetters + lowercaseLetters + numbers + specialCharacters
+        : uppercaseLetters + lowercaseLetters + numbers;
+
     let password = '';
     for (let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * allCharacters.length);
         password += allCharacters[randomIndex];
     }
     return password;
-}
+};
 
-async function copyToClipboard(elementId) {
+const copyToClipboard = async (elementId) => {
     if (!canCopy) return;
     const passwordElement = document.getElementById(elementId);
     const textToCopy = passwordElement.textContent;
@@ -44,4 +56,28 @@ async function copyToClipboard(elementId) {
     } catch (err) {
         console.error('Unable to copy to clipboard:', err);
     }
-}
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    initialize();
+
+    document.querySelector('body').addEventListener('click', (e) => {
+        if (e.target.id === 'generate-btn') {
+            renderPassword();
+        }
+        if (e.target.classList.contains('password-box')) {
+            copyToClipboard(e.target.id);
+        }
+    });
+
+    const checkbox = document.getElementById('special-checkbox');
+    checkbox.addEventListener('change', () => {
+        hasSpecial = checkbox.checked;
+    });
+
+    const dropdown = document.getElementById('length');
+    dropdown.addEventListener('change', () => {
+        length = dropdown.value;
+        console.log(length);
+    });
+});
